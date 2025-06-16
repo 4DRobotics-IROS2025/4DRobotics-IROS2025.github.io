@@ -4,82 +4,535 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>4D Scene Understanding for Intelligent Robotics - IROS 2025 Workshop</title>
-    <link rel="stylesheet" href="styles.css">
-    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
-    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+    <title>Advancements for Intelligent Robotics in 4D Scenes - IROS 2025 Workshop</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.1);
+            border-radius: 20px;
+            overflow: hidden;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+
+        header {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grid" width="10" height="10" patternUnits="userSpaceOnUse"><path d="M 10 0 L 0 0 0 10" fill="none" stroke="rgba(255,255,255,0.1)" stroke-width="0.5"/></pattern></defs><rect width="100" height="100" fill="url(%23grid)"/></svg>');
+            opacity: 0.3;
+        }
+
+        header * {
+            position: relative;
+            z-index: 1;
+        }
+
+        h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            background: linear-gradient(45deg, #fff, #e3f2fd);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            font-size: 1.3rem;
+            font-weight: 400;
+            margin-bottom: 30px;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .workshop-info {
+            display: inline-flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.1);
+            padding: 12px 24px;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin-bottom: 40px;
+            backdrop-filter: blur(10px);
+        }
+
+        .nav-container {
+            margin-top: 40px;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            padding: 12px 20px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        section {
+            padding: 60px 40px;
+            border-bottom: 1px solid #eee;
+        }
+
+        section:last-of-type {
+            border-bottom: none;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            font-weight: 600;
+            margin-bottom: 30px;
+            color: #2c3e50;
+            position: relative;
+            display: inline-block;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 0;
+            width: 60px;
+            height: 4px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            border-radius: 2px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            padding: 40px;
+            border-radius: 15px;
+            margin: 30px 0;
+            border-left: 5px solid #667eea;
+        }
+
+        .organizers-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-top: 40px;
+        }
+
+        .organizer {
+            background: white;
+            padding: 25px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 1px solid #f0f0f0;
+        }
+
+        .organizer:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+        }
+
+        .organizer a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        .profile-img {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            margin-bottom: 15px;
+            object-fit: cover;
+            border: 4px solid #f8f9fa;
+            transition: transform 0.3s ease;
+        }
+
+        .organizer:hover .profile-img {
+            transform: scale(1.05);
+        }
+
+        .organizer h3 {
+            font-size: 1.2rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+            color: #2c3e50;
+        }
+
+        .organizer p {
+            color: #666;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+
+        .speakers-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            margin-top: 40px;
+        }
+
+        .speaker {
+            background: linear-gradient(135deg, #fff 0%, #f8f9fa 100%);
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            border: 2px solid transparent;
+        }
+
+        .speaker:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(0, 0, 0, 0.15);
+            border-color: #667eea;
+        }
+
+        .speaker-placeholder {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: 2px solid #5a67d8;
+        }
+
+        .schedule-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-top: 30px;
+        }
+
+        .schedule-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .schedule-table th {
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .schedule-table td {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+            vertical-align: top;
+        }
+
+        .schedule-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .time-slot {
+            font-weight: 600;
+            color: #667eea;
+            font-size: 1.1rem;
+            min-width: 150px;
+        }
+
+        .activity {
+            font-size: 1rem;
+        }
+
+        .keynote {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 5px;
+        }
+
+        .topic {
+            color: #666;
+            font-style: italic;
+            font-size: 0.9rem;
+        }
+
+        .submission-types {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .submission-type {
+            background: white;
+            padding: 25px;
+            border-radius: 10px;
+            box-shadow: 0 3px 15px rgba(0, 0, 0, 0.08);
+            border-left: 4px solid #667eea;
+        }
+
+        .submission-type h4 {
+            color: #2c3e50;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+
+        .dates-container {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.08);
+            margin-top: 30px;
+        }
+
+        .dates-table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        .dates-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        .dates-table td {
+            padding: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .dates-table tr:hover {
+            background: #f8f9fa;
+        }
+
+        .contact-info {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 30px;
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .award-highlight {
+            background: linear-gradient(135deg, #fff3e0 0%, #fce4ec 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border-left: 4px solid #ff9800;
+        }
+
+        footer {
+            background: #2c3e50;
+            color: white;
+            text-align: center;
+            padding: 40px;
+        }
+
+        footer a {
+            color: #67b7dc;
+            text-decoration: none;
+        }
+
+        .icon {
+            margin-right: 8px;
+        }
+
+        .btn-primary {
+            display: inline-block;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 12px 30px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+            margin: 10px 5px;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(102, 126, 234, 0.3);
+        }
+
+        @media (max-width: 1024px) {
+            .organizers-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                margin: 10px;
+                border-radius: 15px;
+            }
+
+            header {
+                padding: 40px 20px;
+            }
+
+            h1 {
+                font-size: 2.2rem;
+            }
+
+            .subtitle {
+                font-size: 1.1rem;
+            }
+
+            section {
+                padding: 40px 20px;
+            }
+
+            h2 {
+                font-size: 2rem;
+            }
+
+            nav ul {
+                gap: 15px;
+            }
+
+            nav a {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .organizers-grid,
+            .speakers-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 480px) {
+            .organizers-grid,
+            .speakers-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
 </head>
 
 <body>
     <div class="container">
         <header>
-            <h1>4D Scene Understanding for Intelligent Robotics</h1>
-            <h2>Advancements for Intelligent Robotics in 4D Scenes:<br>Localization, Reconstruction, Rendering, and
-                Generation</h2>
-            <p class="workshop-info">IROS 2025 Workshop</p>
+            <h1><i class="fas fa-robot icon"></i>Advancements for Intelligent Robotics in 4D Scenes: Localization, Reconstruction, Rendering, and Generation</h1>
+            <p class="subtitle">4D Scene Understanding for Intelligent Robotics</p>
+            <div class="workshop-info">
+                <i class="fas fa-calendar-alt"></i>
+                IROS 2025 Workshop
+            </div>
             <div class="nav-container">
                 <nav>
                     <ul>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#organizers">Organizers</a></li>
-                        <li><a href="#speakers">Speakers</a></li>
-                        <li><a href="#schedule">Schedule</a></li>
-                        <li><a href="#call">Call for Papers</a></li>
-                        <li><a href="#dates">Important Dates</a></li>
+                        <li><a href="#about"><i class="fas fa-info-circle icon"></i>About</a></li>
+                        <li><a href="#organizers"><i class="fas fa-users icon"></i>Organizers</a></li>
+                        <li><a href="#speakers"><i class="fas fa-microphone icon"></i>Speakers</a></li>
+                        <li><a href="#schedule"><i class="fas fa-clock icon"></i>Schedule</a></li>
+                        <li><a href="#call"><i class="fas fa-file-alt icon"></i>Call for Papers</a></li>
+                        <li><a href="#dates"><i class="fas fa-calendar icon"></i>Important Dates</a></li>
                     </ul>
                 </nav>
             </div>
         </header>
 
         <section id="about">
-            <h2>About the Workshop</h2>
-            <p>Modern robotic systems must operate safely and robustly in dynamic environments.
-                Conventional methods for tracking, mapping, grasping, view synthesis, and scene understanding often
-                struggle when assumptions about scene stability are violated. This workshop explores the challenges and
-                solutions of <strong>4D robotics</strong>—spatial perception enhanced by temporal context—by exploring
-                the interplay of dynamic localization, real-time reconstruction, high-fidelity rendering, and generative
-                modeling. We aim to identify and standardize benchmarks, discuss novel evaluation protocols, and inspire
-                cross-disciplinary collaborations. Through engaging keynotes and paper presentations, participants will
-                gain insights into state-of-the-art approaches and chart future research directions for next-generation
-                robotics.</p>
+            <h2><i class="fas fa-lightbulb icon"></i>About the Workshop</h2>
+            <div class="highlight-box">
+                <p><strong>The Challenge:</strong> Modern robotic systems must operate safely and robustly in dynamic environments where conventional assumptions about scene stability are constantly violated.</p>
+            </div>
+            
+            <p>This workshop explores the cutting-edge intersection of <strong>4D robotics</strong>—where spatial perception meets temporal context—addressing the fundamental challenges of dynamic localization, real-time reconstruction, high-fidelity rendering, and generative modeling in ever-changing environments.</p>
+
+            <p>Through engaging keynotes, paper presentations, and interactive discussions, participants will discover state-of-the-art approaches that enable robots to not just perceive their environment, but truly understand its temporal dynamics. We aim to establish standardized benchmarks, discuss novel evaluation protocols, and foster cross-disciplinary collaborations that will shape the next generation of intelligent robotics.</p>
+
+            <div class="highlight-box">
+                <h4><i class="fas fa-target icon"></i>Key Focus Areas:</h4>
+                <ul style="margin-top: 15px;">
+                    <li><strong>Dynamic Localization:</strong> Real-time positioning in changing environments</li>
+                    <li><strong>Temporal Reconstruction:</strong> Building 4D world models from sensor data</li>
+                    <li><strong>Neural Rendering:</strong> High-fidelity view synthesis for robotic perception</li>
+                    <li><strong>Scene Generation:</strong> Creating realistic dynamic environments for training and simulation</li>
+                </ul>
+            </div>
         </section>
 
         <section id="organizers">
-            <h2>Organizers</h2>
+            <h2><i class="fas fa-users icon"></i>Organizers</h2>
+            <p>Our workshop is organized by leading researchers from prestigious institutions worldwide, bringing together expertise in computer vision, robotics, and AI.</p>
+            
             <div class="organizers-grid">
                 <a href="https://yanyan-li.github.io/">
                     <div class="organizer">
                         <img src="images/yanyan.png" alt="Yanyan Li" class="profile-img">
                         <h3>Yanyan Li</h3>
-                        <p>National University of Singapore</p>
+                        <p>NUS</p>
                     </div>
                 </a>
                 <a href="https://lixin.ai/">
                     <div class="organizer">
                         <img src="images/XinLi.png" alt="Xin Li" class="profile-img">
                         <h3>Xin Li</h3>
-                        <p>Nanyang Technological University</p>
+                        <p>NTU</p>
                     </div>
                 </a>
                 <a href="https://shangbuhuan13.github.io/">
                     <div class="organizer">
                         <img src="images/YanDi.png" alt="Yan Di" class="profile-img">
                         <h3>Yan Di</h3>
-                        <p>Technology University of Munich<br>Harbin Institute of Technology</p>
+                        <p>TUM & HIT</p>
                     </div>
                 </a>
                 <a href="https://lolrudy.github.io/">
                     <div class="organizer">
                         <img src="images/rudy.jpg" alt="Ruida Zhang" class="profile-img">
                         <h3>Ruida Zhang</h3>
-                        <p>Tsinghua University</p>
+                        <p>THU</p>
                     </div>
                 </a>
                 <a href="https://xiangyueliu.github.io/">
                     <div class="organizer">
                         <img src="images/Xiangyue.jpg" alt="Xiangyue Liu" class="profile-img">
                         <h3>Xiangyue Liu</h3>
-                        <p>Hong Kong University of Science and Technology</p>
+                        <p>HKUST</p>
                     </div>
                 </a>
                 <a href="https://wangyida.github.io/">
@@ -93,129 +546,131 @@
                     <div class="organizer">
                         <img src="images/zhongliang.jpg" alt="Zhongliang Jiang" class="profile-img">
                         <h3>Zhongliang Jiang</h3>
-                        <p>Technology University of Munich</p>
+                        <p>TUM</p>
                     </div>
                 </a>
                 <a href="https://blogs.ntu.edu.sg/chau-yuen/">
                     <div class="organizer">
                         <img src="images/Chau.jpg" alt="Chau Yuen" class="profile-img">
                         <h3>Chau Yuen</h3>
-                        <p>Nanyang Technological University</p>
+                        <p>NTU</p>
                     </div>
                 </a>
             </div>
-            <p class="contact-info"><strong>Contact:</strong> yanyan.li.camp@gmail.com; xin019@e.ntu.edu.sg</p>
+            
+            <div class="contact-info">
+                <i class="fas fa-envelope icon"></i>
+                <strong>Contact:</strong> yanyan.li.camp@gmail.com | xin019@e.ntu.edu.sg
+            </div>
         </section>
 
         <section id="speakers">
-            <h2>Invited Speakers</h2>
+            <h2><i class="fas fa-microphone icon"></i>Invited Speakers</h2>
+            <p>We are curating an exceptional lineup of speakers from leading academic institutions and industry partners to share cutting-edge insights in 4D scene understanding.</p>
+            
             <div class="speakers-grid">
-                <!-- <a href="#">
-                    <div class="speaker">
-                        <img src="images/placeholder.svg" alt="Gim Hee Lee" class="profile-img">
-                        <h3>Prof. Gim Hee Lee</h3>
-                        <p>National University of Singapore</p>
-                        <p><strong>Status: Confirmed</strong></p>
-                        <p><strong>Topic:</strong> High-fidelity View Synthesis and Scene Understanding</p>
+                <div class="speaker speaker-placeholder">
+                    <div class="profile-img" style="background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-user-tie" style="font-size: 3rem;"></i>
                     </div>
-                </a>
-                <a href="#">
-                    <div class="speaker">
-                        <img src="images/placeholder.svg" alt="Danping Zou" class="profile-img">
-                        <h3>Prof. Danping Zou</h3>
-                        <p>Shanghai Jiaotong University</p>
-                        <p><strong>Status: TBD</strong></p>
-                        <p><strong>Topic:</strong> Real-time Localization in Dynamic Scenes</p>
+                    <h3>Distinguished Speaker</h3>
+                    <!-- <p><strong>Topic:</strong> Temporal Mapping & Localization</p> -->
+                    <p style="margin-top: 10px;"><em>Announcement coming soon</em></p>
+                </div>
+                
+                <div class="speaker speaker-placeholder">
+                    <div class="profile-img" style="background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-user-tie" style="font-size: 3rem;"></i>
                     </div>
-                </a>
-                <a href="#">
-                    <div class="speaker">
-                        <img src="images/placeholder.svg" alt="Federico Tombari" class="profile-img">
-                        <h3>Prof. Federico Tombari</h3>
-                        <p>Technical University of Munich, Google</p>
-                        <p><strong>Status: Confirmed</strong></p>
-                        <p><strong>Topic:</strong> 4D Scene Interaction and Generation</p>
+                    <h3>Distinguished Speaker</h3>
+                    <!-- <p><strong>Topic:</strong> Temporal Mapping & Localization</p> -->
+                    <p style="margin-top: 10px;"><em>Announcement coming soon</em></p>
+                </div>
+                
+                <div class="speaker speaker-placeholder">
+                    <div class="profile-img" style="background: rgba(255,255,255,0.2); display: flex; align-items: center; justify-content: center;">
+                        <i class="fas fa-user-tie" style="font-size: 3rem;"></i>
                     </div>
-                </a>
-                <a href="#">
-                    <div class="speaker">
-                        <img src="images/placeholder.svg" alt="Xiaozhi Chen" class="profile-img">
-                        <h3>Dr. Xiaozhi Chen</h3>
-                        <p>DJI</p>
-                        <p><strong>Status: TBD</strong></p>
-                        <p><strong>Topic:</strong> Next Generation of Perception in Autonomous Driving</p>
-                    </div>
-                </a> -->
-                <a href="#">
-                    <div class="speaker">
-                        <img src="images/placeholder.svg" alt="Additional Speaker" class="profile-img">
-                        <h3>Speaker</h3>
-                        <p>TBD</p>
-                    </div>
-                </a>
+                    <h3>Distinguished Speaker</h3>
+                    <!-- <p><strong>Topic:</strong> Temporal Mapping & Localization</p> -->
+                    <p style="margin-top: 10px;"><em>Announcement coming soon</em></p>
+                </div>
+                
             </div>
-            <p><em>We are also engaging additional speakers from diverse geographical regions and underrepresented
-                    groups to ensure a broad set of perspectives.</em></p>
+            
+            <!-- <div class="highlight-box">
+                <p><i class="fas fa-globe icon"></i><strong>Diversity & Inclusion:</strong> We are committed to featuring speakers from diverse geographical regions and underrepresented groups to ensure a comprehensive range of perspectives and approaches in 4D robotics research.</p>
+            </div> -->
         </section>
 
         <section id="schedule">
-            <h2>Tentative Schedule</h2>
+            <h2><i class="fas fa-clock icon"></i>Schedule</h2>
+            <p>A full day of cutting-edge research presentations, interactive discussions, and networking opportunities.</p>
+            
             <div class="schedule-container">
                 <table class="schedule-table">
                     <thead>
                         <tr>
-                            <th>Time</th>
-                            <th>Activity</th>
+                            <th><i class="fas fa-clock icon"></i>Time</th>
+                            <th><i class="fas fa-list icon"></i>Activity</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>8:30 - 8:40</td>
-                            <td>Welcome and Opening Remarks</td>
-                        </tr>
-                        <tr>
-                            <td>8:40 - 9:10</td>
-                            <td>
-                                <strong>Keynote 1:</strong> (TBD)<br>
-                                <!-- <em>Focus: Latest breakthroughs in temporal mapping and localization</em>
-                                <strong>Keynote 1:</strong> Emerging Trends in 4D Scene Understanding<br>
-                                <em>Focus: Latest breakthroughs in temporal mapping and localization</em> -->
+                            <td class="time-slot">8:30 - 8:40</td>
+                            <td class="activity">
+                                <div class="keynote"><i class="fas fa-flag icon"></i>Welcome and Opening Remarks</div>
+                                <div class="topic">Introduction to workshop themes and objectives</div>
                             </td>
                         </tr>
                         <tr>
-                            <td>9:10 - 9:40</td>
-                            <td>
-                                <strong>Keynote 2:</strong> (TBD)<br>
-                                <!-- <em>Focus: Techniques for achieving high-speed, temporally coherent rendering</em> -->
+                            <td class="time-slot">8:40 - 9:10</td>
+                            <td class="activity">
+                                <div class="keynote"><i class="fas fa-star icon"></i>Keynote 1: XXX</div>
+                                <div class="topic">XXX</div>
                             </td>
                         </tr>
                         <tr>
-                            <td>9:40 - 10:30</td>
-                            <td>Coffee break at posters (Posters of workshop papers and invited conference
-                                papers)</td>
-                        </tr>
-                        <tr>
-                            <td>10:30 - 11:00</td>
-                            <td>
-                                <strong>Keynote 3:</strong> (TBD)<br>
-                                <!-- <em>Focus: Frontier research on visual language models and open vocabulary tasks</em> -->
+                            <td class="time-slot">9:10 - 9:40</td>
+                            <td class="activity">
+                                <div class="keynote"><i class="fas fa-star icon"></i>Keynote 2: XXX</div>
+                                <div class="topic">XXX</div>
                             </td>
                         </tr>
                         <tr>
-                            <td>11:00 - 11:30</td>
-                            <td>
-                                <strong>Keynote 4:</strong> (TBD)<br>
-                                <!-- <em>Focus: Techniques for achieving high-speed autonomous driving</em> -->
+                            <td class="time-slot">9:40 - 10:30</td>
+                            <td class="activity">
+                                <div class="keynote"><i class="fas fa-coffee icon"></i>Coffee Break & Poster Session</div>
+                                <div class="topic">Interactive poster presentations of workshop papers and invited conference contributions</div>
                             </td>
                         </tr>
                         <tr>
-                            <td>11:30 - 12:20</td>
-                            <td><strong>Oral Paper Presentations:</strong> Selected contributions on dynamic 4D methods
+                            <td class="time-slot">10:30 - 11:00</td>
+                            <td class="activity">
+                                <div class="keynote"><i class="fas fa-star icon"></i>Keynote 3: XXX</div>
+                                <div class="topic">XXX</div>
                             </td>
                         </tr>
                         <tr>
-                            <td>12:20 - 12:30</td>
-                            <td>Paper Award Announcement and Closing Remarks</td>
+                            <td class="time-slot">11:00 - 11:30</td>
+                            <td class="activity">
+                                <div class="keynote"><i class="fas fa-star icon"></i>Keynote 4: XXX</div>
+                                <div class="topic">XXX</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time-slot">11:30 - 12:20</td>
+                            <td class="activity">
+                                <div class="keynote"><i class="fas fa-presentation icon"></i>Oral Paper Presentations</div>
+                                <div class="topic">Selected contributions showcasing novel 4D methodologies and applications</div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="time-slot">12:20 - 12:30</td>
+                            <td class="activity">
+                                <div class="keynote"><i class="fas fa-trophy icon"></i>Awards & Closing Remarks</div>
+                                <div class="topic">Best Paper Award announcements and future research directions</div>
+                            </td>
                         </tr>
                     </tbody>
                 </table>
@@ -223,62 +678,115 @@
         </section>
 
         <section id="call">
-            <h2>Call for Papers</h2>
-            <p>Submissions are <em>non-archival</em>, allowing previously accepted or ongoing work to be presented
-                (accepted papers will be made available on our workshop website). Three categories of papers are
-                welcomed:</p>
-            <ul>
-                <li><strong>Full Papers:</strong> Up to 8 pages (excluding references and appendix, i.e., 8+n pages)
-                </li>
-                <li><strong>Short Papers:</strong> Up to 4 pages (excluding references and appendix, i.e., 4+n pages)
-                </li>
-                <li><strong>Extended Abstracts:</strong> Up to 2 pages (excluding references and appendix, i.e., 2+n
-                    pages)</li>
-            </ul>
-            <p>We will conduct a <strong>double-blind review</strong> with at least two expert reviewers per paper.
-                Submissions will be judged on relevance, technical merit, clarity, and potential impact.
-                <strong>Outstanding papers</strong> will be invited for extended submissions to a special journal issue
-                (TBD). Two <strong>Best Paper Awards</strong> (oral and poster) are planned to recognize outstanding
-                papers and encourage high-quality contributions.</p>
+            <h2><i class="fas fa-file-alt icon"></i>Call for Papers</h2>
+            <p>We invite submissions that advance the state-of-the-art in 4D scene understanding for robotics applications. All submissions are <strong>non-archival</strong>, enabling presentation of both novel work and previously published research. Accepted papers will be made available on our workshop website.</p>
+
+            <div class="submission-types">
+                <div class="submission-type">
+                    <h4><i class="fas fa-file icon"></i>Full Papers</h4>
+                    <p>Up to 8 pages (excluding references and appendix)<br>
+                    <em>Comprehensive research contributions</em></p>
+                </div>
+                <div class="submission-type">
+                    <h4><i class="fas fa-file-alt icon"></i>Short Papers</h4>
+                    <p>Up to 4 pages (excluding references and appendix)<br>
+                    <em>Focused contributions and preliminary results</em></p>
+                </div>
+                <div class="submission-type">
+                    <h4><i class="fas fa-sticky-note icon"></i>Extended Abstracts</h4>
+                    <p>Up to 2 pages (excluding references and appendix)<br>
+                    <em>Work in progress and position papers</em></p>
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <h4><i class="fas fa-search icon"></i>Review Process</h4>
+                <p>We conduct <strong>double-blind peer review</strong> with at least two expert reviewers per submission. Papers are evaluated on relevance, technical merit, clarity, and potential impact on the field.</p>
+            </div>
+
+            <div class="award-highlight">
+                <h4><i class="fas fa-trophy icon"></i>Recognition & Awards</h4>
+                <p>We will present <strong>Best Paper Awards</strong> for both oral and poster presentations to recognize exceptional contributions.</p>
+            </div>
+
+            <div style="text-align: center; margin-top: 30px;">
+                <a href="#dates" class="btn-primary">
+                    <i class="fas fa-calendar-check icon"></i>View Submission Timeline
+                </a>
+            </div>
         </section>
 
         <section id="dates">
-            <h2>Important Dates(Tentative)</h2>
+            <h2><i class="fas fa-calendar icon"></i>Important Dates</h2>
+            <p>Mark your calendars for these critical submission and review milestones.</p>
+            
             <div class="dates-container">
                 <table class="dates-table">
                     <thead>
                         <tr>
-                            <th>Event</th>
-                            <th>Date</th>
+                            <th><i class="fas fa-calendar-day icon"></i>Milestone</th>
+                            <th><i class="fas fa-clock icon"></i>Date</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td>Submission Opens</td>
-                            <td>08 Jul, 2025</td>
+                            <td><i class="fas fa-play icon"></i>Submission Opens</td>
+                            <td><strong>July 8, 2025</strong></td>
                         </tr>
                         <tr>
-                            <td>Submission Deadline</td>
-                            <td>20 Sep, 2025 (AoE)</td>
+                            <td><i class="fas fa-upload icon"></i>Submission Deadline</td>
+                            <td><strong>September 20, 2025 (AoE)</strong></td>
                         </tr>
                         <tr>
-                            <td>Notification of Acceptance</td>
-                            <td>30 Sep, 2025</td>
+                            <td><i class="fas fa-bell icon"></i>Notification of Acceptance</td>
+                            <td><strong>September 30, 2025</strong></td>
                         </tr>
                         <tr>
-                            <td>Camera-Ready Deadline</td>
-                            <td>10 Oct, 2025</td>
+                            <td><i class="fas fa-check icon"></i>Camera-Ready Deadline</td>
+                            <td><strong>October 10, 2025</strong></td>
                         </tr>
                     </tbody>
                 </table>
             </div>
+            
+            <div class="highlight-box" style="text-align: center; margin-top: 30px;">
+                <p><i class="fas fa-info-circle icon"></i><strong>Note:</strong> All dates are tentative and subject to confirmation. Updates will be posted on this website.</p>
+            </div>
         </section>
 
         <footer>
-            <p>&copy; 2025 4D Scene Understanding for Intelligent Robotics Workshop</p>
-            <p>Website: <a href="https://4drobotics-iros2025.github.io/">https://4drobotics-iros2025.github.io/</a></p>
+            <p><i class="fas fa-copyright icon"></i>2025 4D Scene Understanding for Intelligent Robotics Workshop</p>
+            <p><i class="fas fa-globe icon"></i>Website: <a href="https://4drobotics-iros2025.github.io/">https://4drobotics-iros2025.github.io/</a></p>
+            <p style="margin-top: 20px; opacity: 0.8;">
+                <i class="fas fa-handshake icon"></i>Fostering the future of intelligent robotics through 4D scene understanding
+            </p>
         </footer>
     </div>
+
+    <script>
+        // Smooth scrolling for navigation links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // Add loading animation for images
+        document.querySelectorAll('.profile-img').forEach(img => {
+            img.addEventListener('load', function() {
+                this.style.opacity = '1';
+            });
+            img.style.opacity = '0';
+            img.style.transition = 'opacity 0.3s ease';
+        });
+    </script>
 </body>
 
 </html>
